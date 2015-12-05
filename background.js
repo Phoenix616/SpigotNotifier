@@ -86,10 +86,10 @@ function checkNotifications(data) {
 
 function checkProfileStats(data) {
     chrome.storage.local.set({
-        'posts': $(data).find(".stats").text().split(":")[1]
+        'posts': $(data).find("#content").find(".stats").text().split(":")[1]
     });
     chrome.storage.local.set({
-        'rating': $(data).find(".dark_postrating_positive").text()
+        'rating': $(data).find("#content").find(".dark_postrating_positive").text()
     });
 }
 
