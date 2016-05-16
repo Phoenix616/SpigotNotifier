@@ -2,16 +2,19 @@ var alerts = 0;
 var alerts_old = 0;
 var messages = 0;
 var messages_old = 0;
+var friends = 0;
+var friends_old = 0;
+
 var my_notids_alerts = [];
 var my_notids_messages = [];
+var my_notids_friends = [];
 
 function checkEverything() {
     $.ajax({
-        url: 'https://www.spigotmc.org',
+        url: 'https://m.facebook.com/',
         success: function(data) {
             data = data.replace(/\"\/\//g, "\"https://");
             checkNotifications(data);
-            checkProfileStats(data);
         }
     });
 }
@@ -19,14 +22,16 @@ function checkEverything() {
 function makeNotification(title, message) {
     chrome.notifications.create({
         type: "basic",
-        iconUrl: "icon512.png",
+        iconUrl: "icon64.png",
         title: title,
         message: message
     }, function(notificationid) {
-        if (title.startsWith("New A")) {
-            my_notids_alerts.push(notificationid);
-        } else {
+        if (title.startsWith("New M")) {
             my_notids_messages.push(notificationid);
+        } else if (title.startsWith("New F")) {
+            my_notids_friends.push(notificationid);
+        } else {
+            my_notids_alerts.push(notificationid);
         }
     });
 }
@@ -36,6 +41,8 @@ chrome.notifications.onClosed.addListener(function(notificationid, byuser) {
         my_notids_alerts.pop(notificationid);
     } else if (my_notids_messages.indexOf(notificationid) > -1) {
         my_notids_messages.pop(notificationid);
+    } else if (my_notids_friends.indexOf(notificationid) > -1) {
+        my_notids_friends.pop(notificationid);
     }
 });
 
@@ -54,9 +61,11 @@ chrome.notifications.onClicked.addListener(function(notificationid) {
 function checkNotifications(data) {
     alerts_old = alerts;
     messages_old = messages;
+    friends_old = friends;
 
-    alerts = parseInt($(data).find("#AlertsMenu_Counter").text());
-    messages = parseInt($(data).find("#ConversationsMenu_Counter").text());
+    alerts = parseInt($(data).find("#notifications_jewel a ._59tf ._59tg").text());
+    messages = parseInt($(data).find("#messages_jewel a ._59tf ._59tg").text());
+    friends = parseInt($(data).find("#requests_jewel a ._59tf ._59tg").text());
 
     chrome.storage.local.set({
         'alerts': alerts
@@ -64,8 +73,11 @@ function checkNotifications(data) {
     chrome.storage.local.set({
         'messages': messages
     });
+    chrome.storage.local.set({
+        'friends': friends
+    });
 
-    var total = alerts + messages;
+    var total = alerts + messages + friends;
 
     chrome.browserAction.setBadgeText({
         text: (total == 0) ? "" : total.toString()
@@ -73,26 +85,22 @@ function checkNotifications(data) {
 
     if (total > 0) {
         if (alerts > alerts_old) {
+            makeNotification("New Notification" + (alerts - alerts_old > 1 ? "s" : ""), "You've got " + alerts + " new notifications!");
             alerts_old = alerts
-            makeNotification("New Alert(s)", "You've got " + alerts + " new alerts!");
         }
 
         if (messages > messages_old) {
+            makeNotification("New Message" + (messages - messages_old > 1 ? "s" : ""), "You've got " + messages + " unread messages!");
             messages_old = messages;
-            makeNotification("New Message(s)", "You've got " + messages + " unread messages!");
+        }
+
+        if (friends > friends_old) {
+            makeNotification("New Friend Request" + (friends - friends_old > 1 ? "s" : ""), "You've got " + friends + " unanswered friend requests!");
+            friends_old = friends;
         }
     }
 }
 
-function checkProfileStats(data) {
-    chrome.storage.local.set({
-        'posts': $(data).find("#content").find(".stats").text().split(":")[1].replace("\n", "")
-    });
-    chrome.storage.local.set({
-        'rating': $(data).find("#content").find(".dark_postrating_positive").text()
-    });
-}
-
 setInterval(checkEverything, 15 * 1000);
 setTimeout(checkEverything, 1000); // Don't ask...
-chrome.browserAction.setBadgeBackgroundColor({"color":"#ed8106"}) // Set to orange colour
+chrome.browserAction.setBadgeBackgroundColor({"color":"#DA2929"}) // Set to red colour

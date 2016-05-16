@@ -1,5 +1,5 @@
 body {
-    width: 170px;
+    width: 175px;
     font-size: 14px;
     font-family: Verdana, Arial, Ubuntu, sans-serif;
     margin: 0;
@@ -7,7 +7,7 @@ body {
 a, 
 a:link, 
 a:visited {
-    color: black;
+    color: #3B5998;
     text-decoration: none;
 }
 .icon {
@@ -18,10 +18,9 @@ a:visited {
 .header {
     font-size: 16px;
     font-weight: bold;
-    padding-top: 8px;
-    padding-left: 30px;
-    padding-bottom: 8px;
-    background: #ed8106;
+    padding: 8px;
+    background: #3B5998;
+    color: white;
 }
 .center {
     text-align: center;
@@ -32,19 +31,6 @@ a:visited {
 }
 #alerts,
 #messages,
-#posts,
-#rating {
+#friends {
     font-weight: 100;
-}
-#alerts {
-    color: #4A4A4A;
-}
-#messages {
-    color: #98443B;
-}
-#posts {
-    color: #949494;
-}
-#rating {
-    color: #66AF5F;
 }

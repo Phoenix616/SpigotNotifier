@@ -2,19 +2,15 @@ var id = 'SpigotNotifier';
 
 $(document).ready(function() {
     chrome.storage.local.get('alerts', function(response) {
-        $("#alerts").text(response.alerts + " new");
+        $("#alerts").text(response.alerts);
     });
 
     chrome.storage.local.get('messages', function(response) {
-        $("#messages").text(response.messages + " new");
+        $("#messages").text(response.messages);
     });
 
-    chrome.storage.local.get('posts', function(response) {
-        $("#posts").text(response.posts);
-    });
-
-    chrome.storage.local.get('rating', function(response) {
-        $("#rating").text("+" + response.rating);
+    chrome.storage.local.get('friends', function(response) {
+        $("#friends").text(response.friends);
     });
 
     $('body').on('click', 'a', function() {

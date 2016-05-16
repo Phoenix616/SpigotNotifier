@@ -1,13 +1,13 @@
 {
     "manifest_version":2,
-    "name":"Spigot Notifier",
-    "description":"Get SpigotMc.org notifications in chrome.",
+    "name":"Facebook Notifier",
+    "description":"Get Facebook notifications in chrome.",
     "version":"1.4",
     "icons":{
+        "16":"icon16.png",
         "32":"icon32.png",
         "48":"icon48.png",
-        "128":"icon128.png",
-        "512":"icon512.png"
+        "64":"icon64.png"
     },
     "browser_action":{
         "default_popup":"popup.html"
