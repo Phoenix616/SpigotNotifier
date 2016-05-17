@@ -50,11 +50,15 @@ chrome.notifications.onClicked.addListener(function(notificationid) {
     if (my_notids_alerts.indexOf(notificationid) > -1) {
         my_notids_alerts.pop(notificationid);
         chrome.notifications.clear(notificationid);
-        window.open("https://www.spigotmc.org/account/alerts");
+        window.open("https://www.facebook.com/notifications");
     } else if (my_notids_messages.indexOf(notificationid) > -1) {
         my_notids_messages.pop(notificationid);
         chrome.notifications.clear(notificationid);
-        window.open("https://www.spigotmc.org/conversations/");
+        window.open("https://www.facebook.com/messages/");
+    } else if (my_notids_friends.indexOf(notificationid) > -1) {
+        my_notids_friends.pop(notificationid);
+        chrome.notifications.clear(notificationid);
+        window.open("https://www.facebook.com/friends/requests/");
     }
 });
 

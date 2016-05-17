@@ -2,7 +2,7 @@
     "manifest_version":2,
     "name":"Facebook Notifier",
     "description":"Get Facebook notifications in chrome.",
-    "version":"1.4",
+    "version":"1.4.1",
     "icons":{
         "16":"icon16.png",
         "32":"icon32.png",
