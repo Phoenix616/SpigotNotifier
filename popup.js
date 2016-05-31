@@ -9,6 +9,14 @@ $(document).ready(function() {
         $("#messages").text(response.messages + " new");
     });
 
+    chrome.storage.local.get('reports', function(response) {
+        $("#reports").text(response.reports + " new");
+    });
+
+    chrome.storage.local.get('moderation', function(response) {
+        $("#moderation").text(response.moderation + " new");
+    });
+
     chrome.storage.local.get('posts', function(response) {
         $("#posts").text(response.posts);
     });

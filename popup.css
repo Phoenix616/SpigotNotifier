@@ -42,6 +42,12 @@ a:visited {
 #messages {
     color: #98443B;
 }
+#reports {
+    color: #888;
+}
+#moderation {
+    color: #888;
+}
 #posts {
     color: #949494;
 }
