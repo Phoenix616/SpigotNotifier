@@ -118,11 +118,12 @@ function checkStaffStuff(data) {
     reports_old = reports;
     moderation_old = moderation;
     
-    var report_data = $(data).find("#userBar .reportedItems .alert .Total");
-    reports = typeof report_data !== 'undefined' ? parseInt(report_data.text()) : 0;
+    var report_data = $(data).find(".reportedItems .alert .Total");
+    reports = report_data.length > 0 ? parseInt(report_data.text()) : 0;
     
-    var moderation_data = $(data).find("#userBar .reportedItems .alert .Total");    
-    moderation = typeof moderation_data !== 'undefined' ? parseInt(moderation_data.text()) : 0;
+    var moderation_data = $(data).find(".moderationQueue .alert .Total");
+    //moderation = typeof moderation_data !== 'undefined' ? parseInt(moderation_data[0].text()) : 0;
+    moderation = moderation_data.length > 0  ? parseInt(moderation_data.text().substring(moderation_data.text().length / 2)) : 0;
         
     chrome.storage.local.set({
         'reports': reports
