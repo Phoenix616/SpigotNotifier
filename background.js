@@ -2,7 +2,7 @@ var alerts = 0;
 var alerts_old = 0;
 var messages = 0;
 var messages_old = 0;
-var reports = 0;
+var reports = "0";
 var reports_old = 0;
 var moderation = 0;
 var moderation_old = 0;
@@ -118,8 +118,11 @@ function checkStaffStuff(data) {
     reports_old = reports;
     moderation_old = moderation;
     
-    var report_data = $(data).find(".reportedItems .alert .Total");
-    reports = report_data.length > 0 ? parseInt(report_data.text()) : 0;
+    var report_data = $(data).find(".reportedItems .Total");
+    reports = report_data.length > 0 ? report_data.text() : "0";
+    if(reports.length > 1) {
+        reports = reports.substring(0, reports.length/2)
+    }
     
     var moderation_data = $(data).find(".moderationQueue .alert .Total");
     //moderation = typeof moderation_data !== 'undefined' ? parseInt(moderation_data[0].text()) : 0;

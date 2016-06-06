@@ -10,11 +10,11 @@ $(document).ready(function() {
     });
 
     chrome.storage.local.get('reports', function(response) {
-        $("#reports").text(response.reports + " new");
+        $("#reports").text(response.reports);
     });
 
     chrome.storage.local.get('moderation', function(response) {
-        $("#moderation").text(response.moderation + " new");
+        $("#moderation").text(response.moderation);
     });
 
     chrome.storage.local.get('posts', function(response) {
