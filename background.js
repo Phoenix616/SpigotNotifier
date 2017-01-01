@@ -8,6 +8,8 @@ var moderation = 0;
 var moderation_old = 0;
 var my_notids_alerts = [];
 var my_notids_messages = [];
+var my_notids_reports = [];
+var my_notids_moderation = [];
 
 function checkEverything() {
     $.ajax({
