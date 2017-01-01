@@ -133,15 +133,12 @@ function checkStaffStuff(data) {
     reports_old = reports;
     moderation_old = moderation;
 
-    var report_data = data.getElementsByClassName("reportedItems")[0].getElementsByClassName("Total")[0];
-    reports = report_data.length > 0 ? report_data.textContent : "0";
-    if(reports.length > 1) {
-        reports = reports.substring(0, reports.length/2)
-    }
+    var report_data = data.getElementsByClassName("reportedItems")[0].getElementsByClassName("Total");
+    reports = report_data.length > 0 ? report_data[0].textContent : "0";
 
-    var moderation_data = data.getElementsByClassName("moderationQueue")[0].getElementsByClassName("alert")[0].getElementsByClassName("Total")[0];
+    var moderation_data = data.getElementsByClassName("moderationQueue")[0].getElementsByClassName("alert")[0].getElementsByClassName("Total");
     //moderation = typeof moderation_data !== 'undefined' ? parseInt(moderation_data[0].text()) : 0;
-    moderation = moderation_data.length > 0  ? parseInt(moderation_data.textContent.substring(moderation_data.textContent.length / 2)) : 0;
+    moderation = moderation_data.length > 0  ? parseInt(moderation_data[0].textContent) : 0;
 
     chrome.storage.local.set({
         'reports': reports
