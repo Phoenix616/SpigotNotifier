@@ -133,12 +133,21 @@ function checkStaffStuff(data) {
     reports_old = reports;
     moderation_old = moderation;
 
-    var report_data = data.getElementsByClassName("reportedItems")[0].getElementsByClassName("Total");
-    reports = report_data.length > 0 ? report_data[0].textContent : "0";
+    var reported_items = data.getElementsByClassName("reportedItems");
+    if (reported_items.length > 0) {
+        var report_data = reported_items[0].getElementsByClassName("Total");
+        reports = report_data.length > 0 ? report_data[0].textContent : 0;
+    } else {
+        reports = 0;
+    }
 
-    var moderation_data = data.getElementsByClassName("moderationQueue")[0].getElementsByClassName("alert")[0].getElementsByClassName("Total");
-    //moderation = typeof moderation_data !== 'undefined' ? parseInt(moderation_data[0].text()) : 0;
-    moderation = moderation_data.length > 0  ? parseInt(moderation_data[0].textContent) : 0;
+    var moderation_queue = data.getElementsByClassName("moderationQueue");
+    if (moderation_queue.length > 0) {
+        var moderation_data = moderation_queue[0].getElementsByClassName("alert")[0].getElementsByClassName("Total");
+        moderation = moderation_data.length > 0  ? parseInt(moderation_data[0].textContent) : 0;
+    } else {
+        moderation = 0;
+    }
 
     chrome.storage.local.set({
         'reports': reports
@@ -166,6 +175,6 @@ function checkStaffStuff(data) {
     */
 
 }
-setInterval(function(){checkEverything()}, 15 * 1000);
+setInterval(function(){checkEverything()}, 10 * 60 * 1000);
 setTimeout(function(){checkEverything()}, 1000); // Don't ask...
 chrome.browserAction.setBadgeBackgroundColor({"color":"#ed8106"}) // Set to orange colour
